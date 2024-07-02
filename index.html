@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Datei Browser</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            /*max-width: 1800px;*/
+            margin: 5px auto;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2f8f2f;
+            text-align: center;
+        }
+        .form-group {
+            overflow: hidden; /* Clear floats */
+        }
+        
+        .search-container {
+            display: flex;
+            /*width: 100%;*/
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-container input[type="text"] {
+            float: left;
+            /*width: 70%;*/
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+        .rightbutton {
+            float: left;
+            padding: 10px 20px;
+            border: 1px solid #2f8f2f;
+            background-color: #2f8f2f;
+            color: white;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        .leftbutton {
+            float: left;
+            padding: 10px 20px;
+            border: 1px solid #2f8f2f;
+            background-color: #2f8f2f;
+            color: white;
+            border-radius: 5px 0 0 5px;
+            cursor: pointer;
+        }
+        .search-container button:hover {
+            background-color: #276f27;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #2f8f2f;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            color: #2f8f2f;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Datei Browser</h1>
+        <div class="search-container">
+            <form method="get" action="/">
+                <div class="form-group">
+                    <a href="/"><button class="leftbutton" type="button">Start</button></a>
+                    <input type="hidden" name="p" value="{{.Path}}">
+                    <input type="text" name="q" placeholder="Dateien suchen..." value="{{.Query}}">
+                    <button class="rightbutton" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Verzeichnis</th>
+                    <th>Typ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Dirs}}
+                <tr>
+                    <td><a href="/{{.Path}}"><strong>{{.Name}}</strong></a></td>
+                    <td>{{.Path}}</td>
+                    <td>Verzeichnis</td>
+                </tr>
+                {{end}}
+                {{range .Files}}
+                <tr>
+                    <td><a href="/{{.Path}}">{{.Name}}</a></td>
+                    <td>{{.Path}}</td>
+                    <td>Datei</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+        <div class="footer">
+            <p>&copy; 2024 Stadt Hilden</p>
+        </div>
+    </div>
+</body>
+</html>
